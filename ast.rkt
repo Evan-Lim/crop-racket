@@ -1,0 +1,61 @@
+#lang racket
+
+(provide
+  (struct-out program)
+  (struct-out sensor-decl) (struct-out output-decl)
+  (struct-out var-decl) (struct-out array-var-decl) (struct-out let-decl)
+  (struct-out rule-decl) (struct-out every-decl)
+  (struct-out if-stmt) (struct-out assign-stmt) (struct-out return-stmt)
+  (struct-out payload-decl) (struct-out payload-field)
+  (struct-out fn-decl) (struct-out param)
+  (struct-out machine-decl) (struct-out invariant-decl)
+  (struct-out emit-decl) (struct-out init-decl)
+  (struct-out extern-decl) (struct-out unsafe-block)
+  (struct-out on-interrupt-decl)
+  (struct-out identifier) (struct-out integer-lit) (struct-out float-lit)
+  (struct-out boolean-lit) (struct-out string-lit)
+  (struct-out binop) (struct-out unop) (struct-out funcall)
+  (struct-out sensor-read) (struct-out is-expr)
+  (struct-out state-lit) (struct-out range-expr))
+
+(struct program (declarations) #:transparent)
+
+;; Declarations
+;; mode: 'pin or 'bus
+(struct sensor-decl (name mode pin protocol addr type poll range) #:transparent)
+(struct output-decl (name pin initial) #:transparent)
+(struct var-decl (name type value) #:transparent)
+(struct array-var-decl (name elem-type size value) #:transparent)
+(struct let-decl (name value) #:transparent)
+(struct rule-decl (name body) #:transparent)
+(struct every-decl (interval body) #:transparent)
+(struct payload-decl (name fields) #:transparent)
+(struct payload-field (type name) #:transparent)
+(struct fn-decl (name params ret-type body) #:transparent)
+(struct param (name type) #:transparent)
+(struct machine-decl (name body) #:transparent)
+(struct invariant-decl (name cond) #:transparent)
+(struct emit-decl (payload args protocol address) #:transparent)
+(struct init-decl (body) #:transparent)
+(struct extern-decl (lang name params ret-type) #:transparent)
+(struct unsafe-block (code) #:transparent)
+(struct on-interrupt-decl (pin edge body) #:transparent)
+
+;; Statements
+(struct if-stmt (cond then else) #:transparent)
+(struct assign-stmt (lhs rhs) #:transparent)
+(struct return-stmt (value) #:transparent)
+
+;; Expressions
+(struct identifier (name) #:transparent)
+(struct integer-lit (value) #:transparent)
+(struct float-lit (value) #:transparent)
+(struct boolean-lit (value) #:transparent)
+(struct string-lit (value) #:transparent)
+(struct binop (op left right) #:transparent)
+(struct unop (op operand) #:transparent)
+(struct funcall (name args) #:transparent)
+(struct sensor-read (name) #:transparent)
+(struct is-expr (target state) #:transparent)
+(struct state-lit (name) #:transparent)
+(struct range-expr (lo hi) #:transparent)

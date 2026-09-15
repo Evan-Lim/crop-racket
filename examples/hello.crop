@@ -1,0 +1,14 @@
+sensor button pin D3 @poll=10ms
+output led pin D4 OFF
+
+var count: u32 = 0
+
+rule "Blink":
+    if button?:
+        led = ON
+        count = count + 1
+    else:
+        led = OFF
+
+every 1s:
+    led = !led
